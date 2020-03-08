@@ -8,6 +8,8 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const userCookieMiddleware = require('./middlewares/userCookieMiddleware');
 const localsMiddleware = require('./middlewares/localsMiddleware');
+// para que el cliente pueda conectarse a otro servidor
+const cors = require('cors');
 
 // ************ express() - (don't touch) ************
 const app = express();
@@ -15,6 +17,7 @@ const app = express();
 // ************ Middlewares - (don't touch) ************
 app.use(express.static(path.join(__dirname, '../public')));  // Necesario para los archivos estáticos en el folder /public
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());

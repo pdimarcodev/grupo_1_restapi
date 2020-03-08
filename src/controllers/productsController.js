@@ -53,16 +53,19 @@ const controller = {
 			.findByPk(req.params.id,{
 				include: ['brand', 'category','colors']
 			})
-			.then (product => res.render('detalle', {product}))
+			.then(product => res.json(product))
 			.catch(error => res.send(error));
 	},
-	listado: (req, res) => {
+	listado: (req, res, next) => {
 		Products
 			.findAll({
 				include: ['brand', 'category','colors']
 			})
-			.then (products => res.render('lista-productos', {products}))
-			.catch(error => res.send(error));
+			.then (products => res.json(products))
+			.catch(error => 
+				{ 	console.log(error);
+					next();
+				});
 	},
 	guardar: (req, res, next) => {
 		Products
